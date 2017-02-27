@@ -10,13 +10,14 @@ black=0,0,0
 #clock object
 clock=pygame.time.Clock()
 FPS=24
+total_frames=0
 ##  Init pygame ####
 backgroundvar=pygame.image.load("./images/forest.jpg")
 bug=Bug(0, height- 40,40, 40, "./images/bug.png" )
 fly=Fly(40, 100, 40,35, "./images/fly.png")
-fly1=Fly(40, 200, 40,35, "./images/fly.png")
-fly2=Fly(40, 400, 40,35, "./images/fly.png")
-fly3=Fly(40, 300, 40,35, "./images/fly.png")
+# fly1=Fly(40, 200, 40,35, "./images/fly.png")
+# fly2=Fly(40, 400, 40,35, "./images/fly.png")
+# fly3=Fly(40, 300, 40,35, "./images/fly.png")
 pygame.init()
 
 ##Screen
@@ -28,13 +29,15 @@ img_bug=pygame.image.load("./images/bug.png")
 ## Main Game loop ###
 while 1:
     #Processing
-    process(bug)
+    process(bug, FPS, total_frames)
     #Processing
 
     #Logic
     bug.motion(width, height)
     #fly.fly(width, height)
     Fly.movement(width, height)
+    BugProjectiles.movement()
+    total_frames+=1
     #Logic
     #Draw
     #screen.fill(black)

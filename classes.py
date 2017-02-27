@@ -21,6 +21,7 @@ class BaseClass(pygame.sprite.Sprite):
 class Bug(BaseClass):
 
     List=pygame.sprite.Group()
+    going_right=True
 
     def __init__(self, x,y, width, height, image_string):
         BaseClass.__init__(self, x,y,width, height, image_string)
@@ -87,3 +88,19 @@ class Fly(BaseClass):
     def movement(width, height):
         for flies in Fly.FlyList:
             flies.fly(width, height)
+
+
+
+class BugProjectiles(BaseClass):
+
+    projecList=pygame.sprite.Group()
+    def __init__(self,x,y, width, height, image_string):
+        BaseClass.__init__(self, x,y,width,height, image_string)
+        BugProjectiles.projecList.add(self)
+        self.velx=None
+
+    @staticmethod
+    def movement():
+        for projectile in BugProjectiles.projecList:
+            projectile.rect.x+=projectile.velx
+
