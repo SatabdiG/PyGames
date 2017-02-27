@@ -37,6 +37,7 @@ def process(bug, fps, total_frames):
             p.velx = -8
 
     spawn(fps, total_frames)
+    collisions()
 
 def spawn(FPS, total_frames):
     if total_frames % FPS == 0:
@@ -46,4 +47,14 @@ def spawn(FPS, total_frames):
             x=640-40
 
         classes.Fly(x,130, 40, 35, "./images/fly.png")
+
+
+
+def collisions():
+    #pygame.sprite.spritecollide(obj, grp, dokill)
+    for fly in classes.Fly.FlyList:
+        fly_toprojectile=pygame.sprite.spritecollide(fly, classes.BugProjectiles.projecList, True)
+        if len(fly_toprojectile)>0:
+            for hit in fly_toprojectile:
+                fly.health-=fly.half_health
 

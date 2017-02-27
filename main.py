@@ -35,7 +35,7 @@ while 1:
     #Logic
     bug.motion(width, height)
     #fly.fly(width, height)
-    Fly.movement(width, height)
+    Fly.update_all(width, height)
     BugProjectiles.movement()
     total_frames+=1
     #Logic

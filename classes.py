@@ -16,6 +16,11 @@ class BaseClass(pygame.sprite.Sprite):
         self.width=width
         self.height=height
 
+    def destroy(self, ClassName):
+        ClassName.remove(self)
+        BaseClass.allsprites.remove(self)
+        del self
+
 
 
 class Bug(BaseClass):
@@ -28,6 +33,7 @@ class Bug(BaseClass):
         Bug.List.add(self)
         self.velx, self.vely=0,5
         self.jumping, self.go_down=False, False
+
 
     def motion(self,width , height):
         predictedloaction=self.rect.x +self.velx
@@ -65,11 +71,21 @@ class Bug(BaseClass):
 class Fly(BaseClass):
     FlyList=pygame.sprite.Group()
 
+    @staticmethod
+    def update_all(width, height):
+        for fly in Fly.FlyList:
+            fly.fly(width, height)
+            if fly.health <=0:
+                fly.destroy(Fly.FlyList)
+
+
     def __init__(self,x, y, width, height, image_string):
         BaseClass.__init__(self, x,y,width,height,image_string)
         Fly.FlyList.add(self)
         self.velx=random.randint(1,4)
         self.amplitude, self.period= random.randint(20, 140), random.randint(4,5)/100.0
+        self.health=100
+        self.half_health=self.health/2
 
     def fly(self, width,height):
 
@@ -84,10 +100,10 @@ class Fly(BaseClass):
 
         self.rect.y=self.amplitude * math.sin(self.period*self.rect.x) + 140
 
-    @staticmethod
-    def movement(width, height):
-        for flies in Fly.FlyList:
-            flies.fly(width, height)
+    # @staticmethod
+    # def movement(width, height):
+    #     for flies in Fly.FlyList:
+    #         flies.fly(width, height)
 
 
 
