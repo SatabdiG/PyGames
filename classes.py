@@ -91,11 +91,32 @@ class Fly(BaseClass):
 
 
 
-class BugProjectiles(BaseClass):
+class BugProjectiles(pygame.sprite.Sprite):
 
     projecList=pygame.sprite.Group()
+    normallist=[]
+
     def __init__(self,x,y, width, height, image_string):
-        BaseClass.__init__(self, x,y,width,height, image_string)
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(image_string)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+        self.width = width
+        self.height = height
+
+        try:
+            last_element=BugProjectiles.normallist[-1]
+            difference=math.fabs(self.rect.x -last_element.rect.x)
+
+            if difference<self.width:
+                return
+
+        except Exception:
+            pass
+
+        BugProjectiles.normallist.append(self)
         BugProjectiles.projecList.add(self)
         self.velx=None
 

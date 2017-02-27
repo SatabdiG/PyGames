@@ -42,6 +42,7 @@ while 1:
     #Draw
     #screen.fill(black)
     screen.blit(backgroundvar, (0,0))
+    BugProjectiles.projecList.draw(screen)
     BaseClass.allsprites.draw(screen)
     pygame.display.flip()
     #Draw
